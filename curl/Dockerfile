@@ -7,10 +7,10 @@ RUN apt-get update && \
     apt-get clean
 
 # Copy source code
-COPY server.cpp /app/server.cpp
+COPY server.cpp /curl/server.cpp
 
 # Build the app
-RUN g++ /app/server.cpp -o /app/server -pthread
+RUN g++ /curl/server.cpp -o /curl/server -pthread
 
 # Expose port 8080 (Render uses PORT env variable)
 EXPOSE 8080

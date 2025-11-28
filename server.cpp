@@ -1,16 +1,26 @@
-#include <iostream>
 #include <asio.hpp>
+#include <iostream>
+#include <cstdlib>
+
 using asio::ip::tcp;
 
 int main() {
-    asio::io_context io;
-    tcp::acceptor acceptor(io, tcp::endpoint(tcp::v4(), 8080));
-    std::cout << "Server online on port 8080\n";
+    try {
+        asio::io_context io;
 
-    for (;;) {
-        tcp::socket socket(io);
-        acceptor.accept(socket);
-        std::string msg = "Hello from Render C++ server!\n";
-        asio::write(socket, asio::buffer(msg));
+        int port = std::atoi(std::getenv("PORT")); // Render PORT
+        tcp::acceptor acceptor(io, tcp::endpoint(tcp::v4(), port));
+
+        std::cout << "Listening on port " << port << std::endl;
+
+        for (;;) {
+            tcp::socket socket(io);
+            acceptor.accept(socket);
+            std::string msg = "Hello from C++ server\n";
+            asio::write(socket, asio::buffer(msg));
+        }
+    }
+    catch (std::exception& e) {
+        std::cerr << "Error: " << e.what() << "\n";
     }
 }

@@ -1,19 +1,17 @@
-# Use Ubuntu base
-FROM ubuntu:24.04
+FROM ubuntu:22.04
 
-# Install required packages
-RUN apt-get update && \
-    apt-get install -y g++ cmake libasio-dev && \
-    apt-get clean
+RUN apt-get update && apt-get install -y \
+    cmake \
+    g++\
+    boost-all-dev\
+    libssl-dev \
+    && rm -rf /var/lib/apt/lists/*
 
-# Copy source cod
-COPY server.cpp /app/server.cpp
+WORKDIR /OK
 
-# Build the app
-RUN g++ /app/server.cpp -o /app/server -pthread
+COPY . .
 
-# Expose port 8080 (Render uses PORT env variable)
-EXPOSE 8080
+RUN cmake -B build -DCMAKE_BUILD_TYPE=Release \
+    && cmake --build build --config Release -- -j$(nproc)
 
-# Run the server
-CMD ["/app/server"]
+CMD ["./build/OK"]

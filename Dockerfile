@@ -15,8 +15,7 @@ WORKDIR /OK
 
 COPY . .
 
-RUN cmake -B build -DCMAKE_BUILD_TYPE=Release \
-    && cmake --build build --config Release -- -j$(nproc)
-
+RUN cmake -B build -S . && cmake --build build
 
 CMD ["./build/OK"]
+

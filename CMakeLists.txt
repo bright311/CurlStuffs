@@ -6,15 +6,10 @@ set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 
-include_directories(/user/include)
+include_directories(/user/local/include)
 
 add_executable(OK src/main.cpp)
 
+target_link_libraries(OK PRIVATE boost_system boost_thread boost_filesystem boost_chrono)
 
-target_link_libraries(OK PRIVATE
-     boost_system
-    boost_thread
-    boost_filesystem
-    boost_date_time
-    boost_chrono)
 

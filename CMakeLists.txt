@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.30.0)
+cmake_minimum_required(VERSION 3.22.1)
 
 project(OK)
 
@@ -17,3 +17,4 @@ target_link_libraries(OK PRIVATE
     boost_filesystem
     boost_date_time
     boost_chrono)
+

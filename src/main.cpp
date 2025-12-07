@@ -67,8 +67,9 @@ int main()
     boost::asio::io_context io_context;
     try
     {
-        run_server(io_context, 5000);
+        run_server(io_context, 10000);
     }catch(exception& e){
         cout << "Error: " << e.what() << "\n";
     }
+
 }

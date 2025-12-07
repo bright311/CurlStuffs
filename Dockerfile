@@ -9,10 +9,10 @@ RUN apt-get update && apt-get install -y \
 
 WORKDIR /deps
 
-# Install Boost manually (with Boost.JSON)
-RUN wget https://boostorg.jfrog.io/artifactory/main/release/1.84.0/source/boost_1_84_0.tar.gz && \
-    tar xf boost_1_84_0.tar.gz && \
-    cd boost_1_84_0 && \
+# Install Boost 1.84 from GitHub (contains Boost.JSON)
+RUN wget https://github.com/boostorg/boost/releases/download/boost-1.84.0/boost-1.84.0.tar.gz && \
+    tar -xzf boost-1.84.0.tar.gz && \
+    cd boost-1.84.0 && \
     ./bootstrap.sh && \
     ./b2 install
 
@@ -22,7 +22,9 @@ COPY . .
 
 RUN cmake -B build -S . && cmake --build build
 
-EXPOSE 5000
+EXPOSE 10000
 
 CMD ["./build/OK"]
+
+
 

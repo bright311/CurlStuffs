@@ -22,6 +22,7 @@ COPY . .
 
 RUN cmake -B build -S . && cmake --build build
 
-EXPOSE 10000
+EXPOSE 5000
 
 CMD ["./build/OK"]
+
